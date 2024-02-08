@@ -13,12 +13,22 @@ include_once "./api/db.php";
 	<script src="./js/jquery-1.9.1.min.js"></script>
 	<script src="./js/js.js"></script>
 </head>
+<style>
+	.pop {
+		background: rgba(51, 51, 51, 0.8);
+		color: #FFF;
+		min-height: 300px;
+		width: 300px;
+		position: fixed;
+		display: none;
+		z-index: 9999;
+		overflow: auto;
+		padding: 15px;
+		height: 400px;
+	}
+</style>
 
 <body>
-	<div id="alerr" style="background:rgba(51,51,51,0.8); color:#FFF; min-height:100px; width:300px; position:fixed; display:none; z-index:9999; overflow:auto;">
-		<pre id="ssaa"></pre>
-	</div>
-
 	<div id="all">
 		<div id="title">
 			<?= date("m月d日 l"); ?> |

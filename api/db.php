@@ -74,13 +74,14 @@ class DB
             $vals = "('" . join("','", $array) . "')";
             $sql .= $cols . " values " . $vals;
         }
+        echo $sql;
         return $this->pdo->exec($sql);
     }
 
     function del($id)
     {
         $sql = "delete from `$this->table` ";
-        if (is_array('id')) {
+        if (is_array($id)) {
             $tmp = $this->a2s($id);
             $sql .= " where " . join(" && ", $tmp);
         } else if (is_numeric($id)) {
@@ -134,11 +135,13 @@ function to($url)
 $Total = new DB('total');
 $User = new DB('user');
 $News = new DB('news');
+$Que = new DB('que');
+$Log = new DB('log');
 
 if (!isset($_SESSION['visited'])) {
     if ($Total->count(['date' => date('Y-m-d')]) > 0) {
         $total = $Total->find(['date' => date('Y-m-d')]);
-        $total++;
+        $total['total']++;
         $Total->save($total);
     } else {
         $Total->save(['date' => date('Y-m-d'), 'total' => 1]);
