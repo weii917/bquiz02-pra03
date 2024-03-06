@@ -1,12 +1,11 @@
 <?php
 date_default_timezone_set("Asia/Taipei");
 session_start();
-
 class DB
 {
-    protected $dsn = "mysql:host=localhost;charset=utf8;dbname=db0203";
-    protected $pdo;
+    protected $dsn = "mysql:host=localhost;charset=utf8;dbname=db0205";
     protected $table;
+    protected $pdo;
 
     public function __construct($table)
     {
@@ -39,7 +38,6 @@ class DB
     {
         return $this->math('sum', $col, $array, $other);
     }
-
     function max($col, $array = '', $other = '')
     {
         return $this->math('max', $col, $array, $other);
@@ -58,6 +56,8 @@ class DB
         } else if (is_numeric($id)) {
             $sql .= " where `id` = '$id' ";
         }
+        // echo $sql;
+
         return $this->pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
     }
 
@@ -67,14 +67,15 @@ class DB
             $sql = "update `$this->table` set ";
             $tmp = $this->a2s($array);
             $sql .= join(",", $tmp);
-            $sql .= " where `id`='{$array['id']}'";
+            $sql .= " where `id` = '{$array['id']}'";
         } else {
             $sql = "insert into `$this->table` ";
             $cols = "(`" . join("`,`", array_keys($array)) . "`)";
             $vals = "('" . join("','", $array) . "')";
             $sql .= $cols . " values " . $vals;
         }
-        echo $sql;
+        // echo $sql;
+
         return $this->pdo->exec($sql);
     }
 
@@ -85,7 +86,7 @@ class DB
             $tmp = $this->a2s($id);
             $sql .= " where " . join(" && ", $tmp);
         } else if (is_numeric($id)) {
-            $sql .= " where `id`='$id' ";
+            $sql .= " where `id` = '$id' ";
         }
         return $this->pdo->exec($sql);
     }
@@ -93,6 +94,7 @@ class DB
     {
         return $this->pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
+
 
     private function a2s($array)
     {
@@ -111,14 +113,13 @@ class DB
                     $sql .= " where " . join(" && ", $tmp);
                 }
             } else {
-                $sql .= $array;
+                $sql .= " $array ";
             }
             $sql .= $other;
             return $sql;
         }
     }
 }
-
 
 function dd($array)
 {
@@ -132,6 +133,10 @@ function to($url)
     header("location:$url");
 }
 
+// $Total = new DB('total');
+// $total = $Total->find(5);
+// dd($total);
+
 $Total = new DB('total');
 $User = new DB('user');
 $News = new DB('news');
@@ -139,12 +144,12 @@ $Que = new DB('que');
 $Log = new DB('log');
 
 if (!isset($_SESSION['visited'])) {
-    if ($Total->count(['date' => date('Y-m-d')]) > 0) {
-        $total = $Total->find(['date' => date('Y-m-d')]);
+    if ($Total->count(['date' => date("Y-m-d")]) > 0) {
+        $total = $Total->find(['date' => date("Y-m-d")]);
         $total['total']++;
         $Total->save($total);
     } else {
-        $Total->save(['date' => date('Y-m-d'), 'total' => 1]);
+        $Total->save(['date' => date("Y-m-d"), 'total' => 1]);
     }
     $_SESSION['visited'] = 1;
 }
