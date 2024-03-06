@@ -1,10 +1,10 @@
 <fieldset>
-    <legend>目前位置:首頁 > 最新文章區 </legend>
+    <legend>目前位置:首頁 > 人氣文章區 </legend>
     <table>
         <tr>
-            <td width="30%">標題</td>
-            <td width="50%">內容</td>
-            <td></td>
+            <td style="width:30%">標題</td>
+            <td style="width:50%">內容</td>
+            <td>人氣</td>
         </tr>
         <?php
         $total = $News->count(['sh' => 1]);
@@ -80,7 +80,7 @@
         function() {
             $(".pop").hide()
             let id = $(this).data('id')
-            $("#p" + id).show();
+            $(`#p${id}`).show();
         }
     )
 </script>
