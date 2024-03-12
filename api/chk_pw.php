@@ -3,5 +3,7 @@ include_once "db.php";
 $res = $User->count($_POST);
 if ($res) {
     $_SESSION['user'] = $_POST['acc'];
+    echo 1;
+} else {
+    echo 0;
 }
-echo $res;

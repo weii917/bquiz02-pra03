@@ -11,9 +11,11 @@
 <script>
     function forget() {
         $.post("./api/forget.php", {
-            email: $("#email").val()
-        }, (res) => {
-            $("#result").text(res);
-        })
+                email: $("#email").val()
+            }, (res) => {
+                $("#result").text(res);
+            }
+
+        )
     }
 </script>
