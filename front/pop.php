@@ -48,15 +48,15 @@
         <?php
         if ($now - 1 > 0) {
             $prev = $now - 1;
-            echo "<a href='?do=news&p=$prev'> < </a>";
+            echo "<a href='?do=pop&p=$prev'> < </a>";
         }
         for ($i = 1; $i <= $pages; $i++) {
             $fontsize = ($now == $i) ? 'font-size:22px' : 'font-size:16px';
-            echo "<a href='?do=news&p=$i' style='$fontsize'> $i </a>";
+            echo "<a href='?do=pop&p=$i' style='$fontsize'> $i </a>";
         }
         if ($now + 1 <= $pages) {
             $next = $now + 1;
-            echo " <a href='?do=news&p=$next'> > </a>";
+            echo " <a href='?do=pop&p=$next'> > </a>";
         }
 
 
